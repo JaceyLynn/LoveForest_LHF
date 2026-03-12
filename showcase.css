@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Gochi Hand', cursive;
+    overflow-x: auto;
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.forest-container {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    height: 90vh;
+}
+
+/* Card dimensions: maintain 100:70 aspect ratio (1.4286:1) based on actual image dimensions */
+/* Total height = 90vh, 14 rows (skipping first 2 rows of images) */
+/* Each card height = 90vh / 14 */
+/* Each card width = height * (100/70) */
+
+.tree {
+    display: grid;
+    grid-template-columns: repeat(20, calc(90vh / 14 * 100 / 70));
+    grid-template-rows: repeat(14, calc(90vh / 14));
+    gap: 3px 3px;
+    height: 90vh;
+}
+
+.flip-card {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Overlay for expanded card */
+.card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: background 0.4s ease;
+}
+
+.card-overlay.active {
+    background: rgba(0, 0, 0, 0.8);
+    pointer-events: all;
+}
+
+/* Expanded card */
+.expanded-card {
+    width: 700px;
+    height: 400px;
+    perspective: 1000px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.card-overlay.active .expanded-card {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.expanded-card .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.expanded-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.expanded-card .flip-card-front,
+.expanded-card .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.expanded-card .flip-card-front {
+    background: transparent;
+}
+
+.expanded-card .flip-card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+
+.expanded-card .flip-card-back {
+    background: #f5f5f0;
+    border-radius: 8px;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.expanded-card .message-content {
+    font-size: 40px;
+    line-height: 64px;
+}
+
+.expanded-card .message-meta {
+    font-size: 14px;
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background: transparent;
+    filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+    transition: filter 0.3s ease 0s; /* no delay for glow */
+}
+
+.flip-card:hover {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+    z-index: 2;
+}
+.flip-card:hover .flip-card-front {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+.flip-card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+    filter: grayscale(100%) brightness(1.5) contrast(0.7);
+    transition: filter 3s ease 2s; /* 2s delay, 3s smooth fade to grayscale */
+}
+
+
+.flip-card.colored .flip-card-front img {
+    filter: grayscale(0%) brightness(1.0) contrast(1.3) saturate(1.5);
+    transition: filter 0.3s ease 0s;
+}
+
+.flip-card:hover .flip-card-front img {
+    filter: grayscale(0%);
+    transition: filter 0.3s ease 0s; /* no delay when hovering */
+}
+
+.flip-card-back {
+    background: #f5f5f0;
+    border-radius: 8px;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.message-content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    font-size: 8px;
+    line-height: 1.4;
+    color: #333;
+    overflow-y: auto;
+    word-wrap: break-word;
+}
+
+.message-content .strikethrough {
+    text-decoration: line-through;
+    text-decoration-style: wavy;
+    text-decoration-color: #333;
+}
+
+.message-meta {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    padding-top: 10px;
+    font-size: 8px;
+    color: #666;
+    text-align: right;
+}
+
+/* Empty card (no message) */
+.flip-card.empty .flip-card-back {
+    background: #e8e8e3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flip-card.empty .message-content {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+}
