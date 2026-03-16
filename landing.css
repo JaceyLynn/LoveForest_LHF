@@ -1,0 +1,381 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-family: 'Oooh Baby', cursive;
+    font-weight: 100;
+}
+
+h2 {
+    font-family: 'Kalnia', serif;
+    font-weight: 600;
+}
+
+h3 {
+    font-family: 'Oooh Baby', cursive;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+p {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Section 1 - 40% width */
+.section1 {
+    width: 40%;
+    height: 100%;
+    background: #F5F3EC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+    color: rgb(0, 0, 0);
+    z-index: 100;
+    overflow: hidden;
+}
+
+.section1 img {
+    max-height: 30%;
+    height: auto;
+    width: auto;
+    margin-bottom: 10rem;
+}
+
+.section1 h1 {
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.section1 p {
+    font-size: 0.8rem;
+    text-align: left;
+    opacity: 0.9;
+    overflow-y: auto;
+    max-height: 40%;
+    line-height: 1.6;
+}
+
+/* Section 2 - 60% width */
+.section2 {
+    width: 60%;
+    height: 100%;
+    background: #333;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0;
+}
+
+/* Cards container - holds stacked cards */
+.cards-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Card base styles */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    position: absolute;
+    left: 0;
+    border: 1px solid black;
+}
+
+.card h2 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.card p{
+    font-size: 0.8rem;
+    color: #333;
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Card 1 - Narrowest, on top */
+.card1 {
+    width: 40vw;
+    height: 90vh;
+    top: 10vh;
+    z-index: 3;
+    background: #D6E8DA;
+    border-radius: 0 50px 0 0;
+}
+
+/* Card 1 hidden state - slides down, 10vh peeking at bottom */
+.card1.hidden-down {
+    top: calc(100vh - 10vh);
+}
+
+/* Card 2 - Medium width, peeks out 10% on right */
+.card2 {
+    padding-right: 5vw;
+    padding-top: 10vh;
+    width: 50vw;
+    height: calc(100vh - 10vh);
+    top: 0;
+    z-index: 2;
+    background: #E9D0CB;
+    border-radius: 0 0 50px 0;
+    justify-content: flex-end;
+}
+
+/* Card 2 hidden state - slides left, 10vw peeking on right */
+.card2.hidden-left {
+    left: calc(-50vw + 10vw);
+}
+
+.card2 h2{
+    text-align: left;
+    margin-left: 10vh;
+} 
+
+/* Card 3 - Widest, at bottom with margin */
+.card3 {
+    width: 60vw;
+    height: 100vh;
+    z-index: 1;
+    background: #f0e29a;
+    padding-bottom: 10vh;
+}
+
+.card3 h3{
+    text-align: left;
+}
+
+/* Card content */
+.card-content {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 0.8rem;
+    color: #333;
+    margin: 0;
+}
+
+.card-subtitle {
+    color: #555;
+    margin: 5px 0 0 0;
+}
+
+/* Title with arrow - for card 1 stack vertically */
+.title-with-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.card1 .title-arrow-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.arrow-link {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+}
+
+.arrow-link svg {
+    height: 3rem;
+    width: 3rem;
+    transition: transform 0.3s ease;
+}
+
+.arrow-link:hover svg {
+    transform: translateX(5px);
+}
+
+/* Card 2 and Card 3 - title runs vertically on right edge with two columns */
+.card2 .title-with-arrow {
+    position: absolute;
+    right: 10px;
+    top: 10vh;
+    bottom: auto;
+    transform: none;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 15px;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.card3 .title-with-arrow {
+    position: absolute;
+    right: 10px;
+    top: auto;
+    bottom: 10vh;
+    transform: none;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 15px;
+    margin: 0;
+    padding: 10px 0;
+}
+
+/* Column for h2 + arrow stacked vertically (top to bottom) */
+.card2 .title-arrow-col,
+.card3 .title-arrow-col {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.card2 .card-title,
+.card3 .card-title {
+    white-space: nowrap;
+    margin: 0;
+}
+
+.card2 .card-subtitle,
+.card3 .card-subtitle {
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* Arrow rotated for vertical cards - below the text */
+.card2 .arrow-link svg,
+.card3 .arrow-link svg {
+    transform: rotate(90deg);
+}
+
+.card2 .arrow-link:hover svg,
+.card3 .arrow-link:hover svg {
+    transform: rotate(90deg) translateX(5px);
+}
+
+.card-text {
+    font-size: 0.5rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Card 2 and Card 3 - add right padding for p and img */
+.card2 .card-text,
+.card3 .card-text {
+    padding-right: 10vw;
+}
+
+.card2 .card-image,
+.card3 .card-image {
+    padding-right: 10vw;
+}
+
+/* Card image - fills card width */
+.card-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Active state indicator */
+.card.active {
+    /* Active card styling */
+}
+
+/* Hidden state for cards (to be used with click animation) */
+.card.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
+}
+
+/* Visible state */
+.card.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .section1,
+    .section2 {
+        width: 100%;
+        height: auto;
+        min-height: 50vh;
+    }
+
+    .cards-container {
+        height: 400px;
+    }
+
+    .card1 {
+        width: 60vw;
+    }
+
+    .card2 {
+        width: 70vw;
+    }
+
+    .card3 {
+        width: 80vw;
+    }
+
+    .card {
+        text-align: center;
+    }
+
+    .card-content {
+        margin-bottom: 15px;
+    }
+
+    .card-image {
+        width: 100px;
+        height: 100px;
+    }
+}
