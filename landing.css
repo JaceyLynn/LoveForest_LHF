@@ -7,6 +7,7 @@
 html, body {
     height: 100%;
     font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
 }
 
 h1 {
@@ -23,6 +24,7 @@ h3 {
     font-family: 'Oooh Baby', cursive;
     font-size: 1rem;
     font-weight: 400;
+    margin-bottom: 1rem;
 }
 
 p {
@@ -38,7 +40,7 @@ p {
 
 /* Section 1 - 40% width */
 .section1 {
-    width: 40%;
+    width: 30%;
     height: 100%;
     background: #F5F3EC;
     display: flex;
@@ -49,13 +51,17 @@ p {
     color: rgb(0, 0, 0);
     z-index: 100;
     overflow: hidden;
+    border-right: 1px solid black;
+    margin-right: -0.5rem;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
 }
 
 .section1 img {
     max-height: 30%;
     height: auto;
     width: auto;
-    margin-bottom: 10rem;
+    margin-bottom: 4rem;
+    top: 5vh;
 }
 
 .section1 h1 {
@@ -75,9 +81,10 @@ p {
 
 /* Section 2 - 60% width */
 .section2 {
-    width: 60%;
+    width: 70%;
     height: 100%;
-    background: #333;
+    background: url('assets/img/AdobeStock_287030368.jpeg') repeat;
+    background-size: cover;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -97,12 +104,13 @@ p {
     flex-direction: column;
     align-items: flex-start;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 50px;
+    padding: 40px;
     cursor: pointer;
     transition: all 0.5s ease;
     position: absolute;
     left: 0;
     border: 1px solid black;
+    overflow: hidden;
 }
 
 .card h2 {
@@ -119,54 +127,83 @@ p {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
+/* Overlay for modal effect */
+.card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
+    z-index: 99;
+}
+
+.card-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+/* Expanded card state - centered in section 2 */
+.card.expanded {
+    position: fixed !important;
+    top: 7.5vh !important;
+    left: calc(70% - 20vw) !important;
+    transform: none !important;
+    width: 40vw !important;
+    height: 85vh !important;
+    z-index: 100 !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 40px;
+}
+
 /* Card 1 - Narrowest, on top */
 .card1 {
     width: 40vw;
-    height: 90vh;
-    top: 10vh;
+    height: 85vh;
+    top: 15vh;
     z-index: 3;
     background: #D6E8DA;
-    border-radius: 0 50px 0 0;
-}
-
-/* Card 1 hidden state - slides down, 10vh peeking at bottom */
-.card1.hidden-down {
-    top: calc(100vh - 10vh);
 }
 
 /* Card 2 - Medium width, peeks out 10% on right */
 .card2 {
-    padding-right: 5vw;
-    padding-top: 10vh;
-    width: 50vw;
-    height: calc(100vh - 10vh);
-    top: 0;
-    z-index: 2;
+    width: 40vw;
+    height: 85vh;
+    top: 3vh;
+    left: 10vw;
+    right: 10vw;
+    z-index: 1;
     background: #E9D0CB;
-    border-radius: 0 0 50px 0;
     justify-content: flex-end;
-}
-
-/* Card 2 hidden state - slides left, 10vw peeking on right */
-.card2.hidden-left {
-    left: calc(-50vw + 10vw);
 }
 
 .card2 h2{
     text-align: left;
-    margin-left: 10vh;
 } 
 
 /* Card 3 - Widest, at bottom with margin */
 .card3 {
-    width: 60vw;
-    height: 100vh;
-    z-index: 1;
+    width: 40vw;
+    height: 85vh;
+    top:30vh;
+    left: 30vw;
+    z-index: 2;
     background: #f0e29a;
-    padding-bottom: 10vh;
+    overflow: hidden;
 }
 
 .card3 h3{
+    text-align: left;
+}
+
+.card3 h2{
     text-align: left;
 }
 
@@ -184,7 +221,6 @@ p {
 
 .card-subtitle {
     color: #555;
-    margin: 5px 0 0 0;
 }
 
 /* Title with arrow - for card 1 stack vertically */
@@ -192,14 +228,13 @@ p {
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 5px;
     margin-bottom: 10px;
 }
 
 .card1 .title-arrow-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 .arrow-link {
@@ -209,56 +244,68 @@ p {
     text-decoration: none;
 }
 
-.arrow-link svg {
-    height: 3rem;
-    width: 3rem;
+.arrow-link img {
+    height: 2rem;
+    width: 2rem;
     transition: transform 0.3s ease;
 }
 
-.arrow-link:hover svg {
+.arrow-link:hover img {
     transform: translateX(5px);
 }
 
-/* Card 2 and Card 3 - title runs vertically on right edge with two columns */
+/* Card 2 - title at top left */
 .card2 .title-with-arrow {
     position: absolute;
-    right: 10px;
-    top: 10vh;
+    left: 40px;
+    top: 40px;
+    right: 40px;
     bottom: auto;
     transform: none;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
+    gap: 0;
     margin: 0;
-    padding: 10px 0;
+    padding: 0;
 }
 
+/* Card 3 - title at top right */
 .card3 .title-with-arrow {
     position: absolute;
-    right: 10px;
-    top: auto;
-    bottom: 10vh;
+    right: 40px;
+    top: 40px;
+    left: 40px;
+    bottom: auto;
     transform: none;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
     display: flex;
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    gap: 15px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
     margin: 0;
-    padding: 10px 0;
+    padding: 0;
 }
 
-/* Column for h2 + arrow stacked vertically (top to bottom) */
-.card2 .title-arrow-col,
-.card3 .title-arrow-col {
+/* Row for h2 + arrow side by side */
+.card2 .title-arrow-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.card3 .title-arrow-row {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
+}
+
+/* Column for h2 + h3 stacked in card 3 */
+.card3 .title-text-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .card2 .card-title,
@@ -271,17 +318,18 @@ p {
 .card3 .card-subtitle {
     white-space: nowrap;
     margin: 0;
+    margin-bottom: 1rem;
 }
 
-/* Arrow rotated for vertical cards - below the text */
-.card2 .arrow-link svg,
-.card3 .arrow-link svg {
-    transform: rotate(90deg);
+/* Arrow for card 2 and 3 */
+.card2 .arrow-link img,
+.card3 .arrow-link img {
+    transform: none;
 }
 
-.card2 .arrow-link:hover svg,
-.card3 .arrow-link:hover svg {
-    transform: rotate(90deg) translateX(5px);
+.card2 .arrow-link:hover img,
+.card3 .arrow-link:hover img {
+    transform: translateX(5px);
 }
 
 .card-text {
@@ -290,15 +338,18 @@ p {
     line-height: 1.6;
 }
 
-/* Card 2 and Card 3 - add right padding for p and img */
-.card2 .card-text,
-.card3 .card-text {
-    padding-right: 10vw;
+/* Card 2 and Card 3 text styles */
+.card2 .card-text {
+    max-width: 100%;
 }
 
-.card2 .card-image,
-.card3 .card-image {
-    padding-right: 10vw;
+.card3 .card-text {
+    text-align: right;
+    max-width: 100%;
+}
+
+.card2 .card-image {
+    max-width: 100%;
 }
 
 /* Card image - fills card width */
