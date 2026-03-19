@@ -1,11 +1,11 @@
-import { MongoClient } from 'mongodb';
+const { MongoClient } = require('mongodb');
 
 const options = {};
 
 let cachedClient = null;
 let cachedDb = null;
 
-export async function connectToDatabase() {
+async function connectToDatabase() {
     if (cachedClient && cachedDb) {
         return { client: cachedClient, db: cachedDb };
     }
@@ -24,3 +24,5 @@ export async function connectToDatabase() {
 
     return { client, db };
 }
+
+module.exports = { connectToDatabase };
