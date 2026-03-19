@@ -1,7 +1,7 @@
 // Serverless function for /api/submit — persists messages to MongoDB
-const { connectToDatabase } = require('./lib/mongodb');
+import { connectToDatabase } from './lib/mongodb.js';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     // Only allow POST
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
@@ -41,7 +41,7 @@ module.exports = async function handler(req, res) {
         console.log(`Message #${userIndex} saved to MongoDB`);
         res.json({ success: true, userIndex });
     } catch (error) {
-        console.error('Failed to save message:', error.message, error.stack);
-        res.status(500).json({ error: 'Failed to save message', detail: error.message });
+        console.error('Failed to save message:', error);
+        res.status(500).json({ error: 'Failed to save message' });
     }
 }

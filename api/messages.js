@@ -1,7 +1,7 @@
 // Serverless function for /api/messages — fetches all messages from MongoDB
-const { connectToDatabase } = require('./lib/mongodb');
+import { connectToDatabase } from './lib/mongodb.js';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     // Only allow GET
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method not allowed' });
