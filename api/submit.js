@@ -1,11 +1,7 @@
-// Serverless function for /api/submit
-// NOTE: Vercel has a read-only filesystem, so messages are stored in memory only.
-// For persistent storage, integrate a database (e.g., Vercel KV, Supabase, MongoDB).
+// Serverless function for /api/submit — persists messages to MongoDB
+import { connectToDatabase } from './lib/mongodb.js';
 
-import fs from 'fs';
-import path from 'path';
-
-export default function handler(req, res) {
+export default async function handler(req, res) {
     // Only allow POST
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
@@ -18,14 +14,8 @@ export default function handler(req, res) {
     }
 
     try {
-        // Read current messages from the static file
-        const messagesFile = path.join(process.cwd(), 'messages.json');
-        let messages = [];
-        try {
-            messages = JSON.parse(fs.readFileSync(messagesFile, 'utf8'));
-        } catch (e) {
-            messages = [];
-        }
+        const { db } = await connectToDatabase();
+        const collection = db.collection('messages');
 
         // Format date as dd/mm/yy
         const now = new Date();
@@ -35,31 +25,23 @@ export default function handler(req, res) {
         const timeTag = `${day}/${month}/${year}`;
 
         // Get next user index
-        const userIndex = messages.length === 0 ? 1 : Math.max(...messages.map(m => m.userIndex)) + 1;
+        const lastMessage = await collection.findOne({}, { sort: { userIndex: -1 } });
+        const userIndex = lastMessage ? lastMessage.userIndex + 1 : 1;
 
-        // Create message object
+        // Create and insert message
         const message = {
-            userIndex: userIndex,
+            userIndex,
             content: text,
-            timeTag: timeTag
+            timeTag,
+            createdAt: new Date()
         };
 
-        // NOTE: On Vercel, this write will NOT persist between requests.
-        // The response still returns success so the user gets feedback.
-        // For production persistence, use a database.
-        messages.push(message);
+        await collection.insertOne(message);
 
-        try {
-            fs.writeFileSync(messagesFile, JSON.stringify(messages, null, 2));
-        } catch (writeErr) {
-            // Expected to fail on Vercel (read-only filesystem)
-            console.log('File write skipped (read-only filesystem)');
-        }
-
-        console.log(`Message #${userIndex} received`);
-        res.json({ success: true, userIndex: userIndex });
+        console.log(`Message #${userIndex} saved to MongoDB`);
+        res.json({ success: true, userIndex });
     } catch (error) {
-        console.error('Failed to process message:', error);
-        res.status(500).json({ error: 'Failed to save message' });
+        console.error('Failed to save message:', error.message, error.stack);
+        res.status(500).json({ error: 'Failed to save message', detail: error.message });
     }
 }

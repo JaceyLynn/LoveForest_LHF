@@ -1,30 +1,21 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs');
+const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Messages file path
-const messagesFile = path.join(__dirname, 'messages.json');
+// MongoDB connection
+const mongoUri = process.env.MONGODB_URI;
+let db;
 
-// Load existing messages or create empty array
-let messages = [];
-if (fs.existsSync(messagesFile)) {
-    try {
-        messages = JSON.parse(fs.readFileSync(messagesFile, 'utf8'));
-    } catch (e) {
-        console.error('Error reading messages file, starting fresh:', e);
-        messages = [];
-    }
-}
-
-// Get next user index
-function getNextUserIndex() {
-    if (messages.length === 0) return 1;
-    return Math.max(...messages.map(m => m.userIndex)) + 1;
+async function connectMongo() {
+    const client = new MongoClient(mongoUri);
+    await client.connect();
+    db = client.db('lhf_forest');
+    console.log('Connected to MongoDB');
 }
 
 app.use(cors());
@@ -94,7 +85,7 @@ Rules:
 });
 
 // Endpoint to submit a message
-app.post('/api/submit', (req, res) => {
+app.post('/api/submit', async (req, res) => {
     const { text } = req.body;
     
     if (!text || !text.trim()) {
@@ -102,6 +93,8 @@ app.post('/api/submit', (req, res) => {
     }
     
     try {
+        const collection = db.collection('messages');
+
         // Format date as dd/mm/yy
         const now = new Date();
         const day = String(now.getDate()).padStart(2, '0');
@@ -109,30 +102,49 @@ app.post('/api/submit', (req, res) => {
         const year = String(now.getFullYear()).slice(-2);
         const timeTag = `${day}/${month}/${year}`;
         
-        const userIndex = getNextUserIndex();
+        // Get next user index
+        const lastMessage = await collection.findOne({}, { sort: { userIndex: -1 } });
+        const userIndex = lastMessage ? lastMessage.userIndex + 1 : 1;
         
-        // Create message object
+        // Create and insert message
         const message = {
-            userIndex: userIndex,
+            userIndex,
             content: text,
-            timeTag: timeTag
+            timeTag,
+            createdAt: new Date()
         };
         
-        // Add to messages array
-        messages.push(message);
+        await collection.insertOne(message);
         
-        // Save to JSON file
-        fs.writeFileSync(messagesFile, JSON.stringify(messages, null, 2));
+        console.log(`Message #${userIndex} saved to MongoDB`);
         
-        console.log(`Message #${userIndex} saved`);
-        
-        res.json({ success: true, userIndex: userIndex });
+        res.json({ success: true, userIndex });
     } catch (error) {
         console.error('Failed to save message:', error);
         res.status(500).json({ error: 'Failed to save message' });
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+// Endpoint to get all messages
+app.get('/api/messages', async (req, res) => {
+    try {
+        const collection = db.collection('messages');
+        const messages = await collection
+            .find({}, { projection: { _id: 0, userIndex: 1, content: 1, timeTag: 1 } })
+            .sort({ userIndex: 1 })
+            .toArray();
+        res.json(messages);
+    } catch (error) {
+        console.error('Failed to fetch messages:', error);
+        res.status(500).json({ error: 'Failed to fetch messages' });
+    }
+});
+
+connectMongo().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`);
+    });
+}).catch(err => {
+    console.error('Failed to connect to MongoDB:', err);
+    process.exit(1);
 });

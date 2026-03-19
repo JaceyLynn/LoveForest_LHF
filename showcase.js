@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const ROW_OFFSET = 2; // Skip first 2 rows of images (start from row 3)
     const CARDS_PER_TREE = COLUMNS * ROWS; // 280 cards per tree
     
-    // Load messages from JSON
+    // Load messages from MongoDB via API
     let messages = [];
     try {
-        const response = await fetch('/messages.json');
+        const response = await fetch('/api/messages');
         messages = await response.json();
     } catch (error) {
         console.error('Failed to load messages:', error);
