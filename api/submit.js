@@ -1,5 +1,22 @@
 // Serverless function for /api/submit — persists messages to MongoDB
-const { connectToDatabase } = require('./_lib/mongodb');
+const { MongoClient } = require('mongodb');
+
+let cachedClient = null;
+let cachedDb = null;
+
+async function connectToDatabase() {
+    if (cachedClient && cachedDb) {
+        return { client: cachedClient, db: cachedDb };
+    }
+    const uri = process.env.MONGODB_URI;
+    if (!uri) throw new Error('MONGODB_URI environment variable is not set');
+    const client = new MongoClient(uri);
+    await client.connect();
+    const db = client.db('lhf_forest');
+    cachedClient = client;
+    cachedDb = db;
+    return { client, db };
+}
 
 module.exports = async function handler(req, res) {
     // Only allow POST

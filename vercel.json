@@ -2,7 +2,15 @@
     "version": 2,
     "builds": [
         {
-            "src": "api/*.js",
+            "src": "api/submit.js",
+            "use": "@vercel/node"
+        },
+        {
+            "src": "api/messages.js",
+            "use": "@vercel/node"
+        },
+        {
+            "src": "api/encourage.js",
             "use": "@vercel/node"
         },
         {
