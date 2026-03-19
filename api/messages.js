@@ -1,5 +1,5 @@
 // Serverless function for /api/messages — fetches all messages from MongoDB
-const { connectToDatabase } = require('./lib/mongodb');
+const { connectToDatabase } = require('./_lib/mongodb');
 
 module.exports = async function handler(req, res) {
     // Only allow GET
