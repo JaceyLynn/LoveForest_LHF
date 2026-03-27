@@ -1,11 +1,9 @@
-const { MongoClient } = require('mongodb');
-
-const options = {};
+import { MongoClient } from 'mongodb';
 
 let cachedClient = null;
 let cachedDb = null;
 
-async function connectToDatabase() {
+export async function connectToDatabase() {
     if (cachedClient && cachedDb) {
         return { client: cachedClient, db: cachedDb };
     }
@@ -15,7 +13,7 @@ async function connectToDatabase() {
         throw new Error('MONGODB_URI environment variable is not set');
     }
 
-    const client = new MongoClient(uri, options);
+    const client = new MongoClient(uri);
     await client.connect();
     const db = client.db('lhf_forest');
 
@@ -24,5 +22,3 @@ async function connectToDatabase() {
 
     return { client, db };
 }
-
-module.exports = { connectToDatabase };

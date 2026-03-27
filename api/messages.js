@@ -1,5 +1,5 @@
 // Serverless function for /api/messages — fetches all messages from MongoDB
-import { connectToDatabase } from './lib/mongodb.js';
+import { connectToDatabase } from './_lib/mongodb.js';
 
 export default async function handler(req, res) {
     // Only allow GET
