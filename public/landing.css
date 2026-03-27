@@ -181,7 +181,6 @@ p {
     right: 10vw;
     z-index: 1;
     background: #E9D0CB;
-    justify-content: flex-end;
 }
 
 .card2 h2{
@@ -196,7 +195,6 @@ p {
     left: 30vw;
     z-index: 2;
     background: #f0e29a;
-    overflow: hidden;
 }
 
 .card3 h3{
@@ -256,12 +254,6 @@ p {
 
 /* Card 2 - title at top left */
 .card2 .title-with-arrow {
-    position: absolute;
-    left: 40px;
-    top: 40px;
-    right: 40px;
-    bottom: auto;
-    transform: none;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -270,20 +262,26 @@ p {
     padding: 0;
 }
 
+.card2 .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 /* Card 3 - title at top right */
 .card3 .title-with-arrow {
-    position: absolute;
-    right: 40px;
-    top: 40px;
-    left: 40px;
-    bottom: auto;
-    transform: none;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 5px;
     margin: 0;
     padding: 0;
+}
+
+.card3 .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 /* Row for h2 + arrow side by side */
@@ -389,6 +387,13 @@ p {
 
 
 /* Responsive adjustments */
+@media (max-width: 900px) {
+    .card.expanded {
+        left: calc(30% + 5%) !important;
+        width: calc(70% * 0.9) !important;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -399,6 +404,11 @@ p {
         width: 100%;
         height: auto;
         min-height: 50vh;
+    }
+
+    .card.expanded {
+        left: 5vw !important;
+        width: 90vw !important;
     }
 
     .cards-container {
@@ -426,7 +436,11 @@ p {
     }
 
     .card-image {
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+    }
+
+    .card3 .card-title {
+        white-space: normal;
     }
 }
