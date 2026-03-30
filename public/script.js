@@ -16,11 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const DEFAULT_DELAY = 0.3;  // seconds
     const PAUSE_THRESHOLD = 10000;  // ms - if pause is longer than this, use max delay
     
-    // Idle timer for encouragement
-    let idleTimer = null;
-    let isWaitingForAI = false;
-    const originalHint = hintElement.textContent;
-    
     // Focus the message box on click
     messageBox.addEventListener('click', () => {
         messageBox.focus();
@@ -79,20 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = false;
     }
     
-    // Reset idle timer on any interaction
-    function resetIdleTimer() {
-        if (idleTimer) {
-            clearTimeout(idleTimer);
-        }
-        
-        // Only start timer if there's some text
-        if (letters.length > 0 && !isWaitingForAI) {
-            idleTimer = setTimeout(() => {
-                fetchEncouragement();
-            }, PAUSE_THRESHOLD);
-        }
-    }
-    
     // Get current text content
     function getCurrentText() {
         return letters
@@ -101,43 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .join('');
     }
     
-    // Fetch encouragement from backend
-    async function fetchEncouragement() {
-        const currentText = getCurrentText();
-        if (!currentText) return;
-        
-        isWaitingForAI = true;
-        hintElement.textContent = "...";
-        
-        try {
-            const response = await fetch('/api/encourage', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text: currentText })
-            });
-            
-            const data = await response.json();
-            if (data.message) {
-                hintElement.textContent = data.message;
-            } else if (data.error) {
-                console.error('API Error:', data.error);
-                hintElement.textContent = originalHint;
-            }
-        } catch (error) {
-            console.error('Failed to fetch encouragement:', error);
-            hintElement.textContent = originalHint;
-        }
-        
-        isWaitingForAI = false;
-    }
-    
     // Handle keydown events
     messageBox.addEventListener('keydown', (e) => {
-        // Reset idle timer on any key
-        resetIdleTimer();
-        
         // Handle backspace - draw squiggle instead of deleting
         if (e.key === 'Backspace') {
             e.preventDefault();

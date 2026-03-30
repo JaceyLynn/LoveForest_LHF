@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Brittany Script';
+    src: url('assets/fonts/TheBrittanyScript.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -84,7 +91,7 @@ h1 {
     z-index: 1;
     font-size: 40px;
     line-height: 64px;
-    font-family: 'Gochi Hand', cursive;
+    font-family: 'Brittany Script', cursive;
     color: #333;
     text-align: left;
     word-wrap: break-word;
@@ -94,7 +101,7 @@ h1 {
 .letter {
     position: relative;
     display: inline;
-    font-family: 'Gochi Hand', cursive;
+    font-family: 'Brittany Script', cursive;
 }
 
 .letter.space {
@@ -154,7 +161,7 @@ h1 {
     color: rgba(255, 255, 255, 0.7);
     padding: 6px 14px;
     font-size: 12px;
-    font-family: 'Gochi Hand', cursive;
+    font-family: 'Brittany Script', cursive;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s ease;

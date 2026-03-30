@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Brittany Script';
+    src: url('assets/fonts/TheBrittanyScript.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +18,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: 'Gochi Hand', cursive;
+    font-family: 'Brittany Script', cursive;
     overflow-x: auto;
     padding-top: 40px;
     display: flex;

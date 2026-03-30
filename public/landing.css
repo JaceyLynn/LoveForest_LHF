@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Brittany Script';
+    src: url('assets/fonts/TheBrittanyScript.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +18,7 @@ html, body {
 }
 
 h1 {
-    font-family: 'Oooh Baby', cursive;
+    font-family: 'Brittany Script', cursive;
     font-weight: 100;
 }
 
@@ -21,7 +28,7 @@ h2 {
 }
 
 h3 {
-    font-family: 'Oooh Baby', cursive;
+    font-family: 'Brittany Script', cursive;
     font-size: 1rem;
     font-weight: 400;
     margin-bottom: 1rem;
