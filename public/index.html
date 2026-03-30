@@ -3,32 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Message Collector</title>
+    <title>Landing Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="landing.css">
 </head>
 <body>
-    <a href="/showcase.html" style="position:fixed;top:16px;right:16px;font-size:12px;color:white;text-decoration:underline;z-index:100;font-family:'Outfit',sans-serif;">view the forest</a>
     <div class="container">
-        <h1>Write Down Your Message</h1>
-        <div class="main-row">
-            <div class="message-box" id="messageBox" tabindex="0">
-                <div class="text-container" id="textContainer"><span class="cursor" id="cursor">|</span></div>
+        <!-- Section 1 - 40% width -->
+        <section class="section1">
+            <img src="assets/img/LoveHouseLogoFinal_ver.png" alt="Love House Logo">
+            <h1>Uplifting Live<br>Through<br>Healing Spaces</h1>
+            <p>At Love House Foundation, we support families navigating the emotional and physical challenges of cancer. Whether at home or in shared spaces, we go beyond comfort - we create personalized sanctuaries that bring peace, strength, and hope wherever healing is needed most.</p>
+        </section>
+
+        <!-- Section 2 - 60% width -->
+        <section class="section2">
+            <div class="cards-container">
+                <!-- Div 1 - Widest -->
+                <div class="card card1 active" data-index="0">
+                    <div class="card-content">
+                        <div class="title-with-arrow">
+                            <div class="title-arrow-row">
+                                <h2 class="card-title">Love Forest</h2>
+                                <a href="message.html" target="_blank" class="arrow-link">
+                                    <img src="assets/img/arrow_forward.svg" alt="Arrow">
+                                </a>
+                            </div>
+                            <h3 class="card-subtitle">A collective Message board</h3>
+                        </div>
+                        <p class="card-text">People carry words they never get to say out loud.
+
+
+The Forest creates a place to leave them, where private words become part of something larger.
+</p>
+                    </div>
+                    <div class="card-image">
+                        <a href="message.html" target="_blank"><img src="assets/img/landing_demo_1.png" alt="Card 1 Image"></a>
+                    </div>
+                </div>
+
+                <!-- Div 2 - Medium width -->
+                <div class="card card2" data-index="1">
+                    <div class="card-content">
+                        <div class="title-with-arrow">
+                            <div class="title-arrow-row">
+                                <h2 class="card-title">Love Popup</h2>
+                                <a href="#" target="_blank" class="arrow-link">
+                                    <img src="assets/img/arrow_forward.svg" alt="Arrow">
+                                </a>
+                            </div>
+                            <h3 class="card-subtitle">A community gathering</h3>
+                        </div>
+                        <p class="card-text">From hospitals to wellness centers and corporate offices, Healing Spaces turns high-stress environments into calming, restorative places, where families, patients, and caregivers need it most.</p>
+                    </div>
+                    <div class="card-image">
+                        <img src="assets/img/landing_demo_2.png" alt="Card 2 Image">
+                    </div>
+                </div>
+
+                <!-- Div 3 - Narrowest -->
+                <div class="card card3" data-index="2">
+                    <div class="card-content">
+                        <div class="title-with-arrow">
+                            <div class="title-arrow-row">
+                                <h2 class="card-title">Love Monument</h2>
+                                <a href="#" target="_blank" class="arrow-link">
+                                    <img src="assets/img/arrow_forward.svg" alt="Arrow">
+                                </a>
+                            </div>
+                            <h3 class="card-subtitle">A lasting tribute</h3>
+                        </div>
+                        <p class="card-text">Survivors, thrivers, families, artists, public figures, and communities leave their marks — grief, courage, memory, and hope gathering into luminous works of collective art.</p>
+                    </div>
+                    <div class="card-image">
+                        <img src="assets/img/landing_demo_3.png" alt="Card 3 Image">
+                    </div>
+                </div>
             </div>
-            <button class="submit-btn" id="submitBtn" title="Submit message">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-            </button>
-        </div>
-        <div class="bottom-row">
-            <p class="hint">Go with the flow...</p>
-            <button class="erase-btn" id="eraseBtn">Start Over</button>
-        </div>
+        </section>
     </div>
-    <script src="script.js"></script>
+
+    <script src="landing.js"></script>
 </body>
 </html>

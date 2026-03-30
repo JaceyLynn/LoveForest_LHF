@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Collector</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="/showcase.html" style="position:fixed;top:16px;right:16px;font-size:12px;color:white;text-decoration:underline;z-index:100;font-family:'Outfit',sans-serif;">view the forest</a>
+    <div class="container">
+        <h1>Write Down Your Message</h1>
+        <div class="main-row">
+            <div class="message-box" id="messageBox" tabindex="0">
+                <div class="text-container" id="textContainer"><span class="cursor" id="cursor">|</span></div>
+            </div>
+            <button class="submit-btn" id="submitBtn" title="Submit message">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+        </div>
+        <div class="bottom-row">
+            <p class="hint">Share your story with cancer...</p>
+            <button class="erase-btn" id="eraseBtn">Start Over</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
