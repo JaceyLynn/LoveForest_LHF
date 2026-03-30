@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Ariata Display';
+    src: url('assets/fonts/AriataDisplayBlack.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -23,12 +30,12 @@ h1 {
 }
 
 h2 {
-    font-family: 'Kalnia', serif;
+    font-family: 'Ariata Display', serif;
     font-weight: 600;
 }
 
 h3 {
-    font-family: 'Brittany Script', cursive;
+    font-family: 'Outfit', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     margin-bottom: 1rem;
@@ -64,7 +71,7 @@ p {
 }
 
 .section1 img {
-    max-height: 30%;
+    max-height: 14%;
     height: auto;
     width: auto;
     margin-bottom: 4rem;
@@ -72,7 +79,7 @@ p {
 }
 
 .section1 h1 {
-    font-size: 3.2rem;
+    font-size: 0.6rem;
     margin-bottom: 20px;
     text-align: left;
 }

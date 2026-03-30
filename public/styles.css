@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Brittany Script';
-    src: url('assets/fonts/TheBrittanyScript.otf') format('opentype');
+    font-family: 'Ariata Display';
+    src: url('assets/fonts/AriataDisplayBlack.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -27,6 +27,7 @@ body {
 h1 {
     color: white;
     margin-bottom: 20px;
+    font-family: 'Ariata Display', serif;
     font-weight: 300;
     letter-spacing: 2px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
@@ -91,7 +92,7 @@ h1 {
     z-index: 1;
     font-size: 40px;
     line-height: 64px;
-    font-family: 'Brittany Script', cursive;
+    font-family: 'Dancing Script', cursive;
     color: #333;
     text-align: left;
     word-wrap: break-word;
@@ -101,7 +102,7 @@ h1 {
 .letter {
     position: relative;
     display: inline;
-    font-family: 'Brittany Script', cursive;
+    font-family: 'Dancing Script', cursive;
 }
 
 .letter.space {
@@ -143,6 +144,7 @@ h1 {
 .hint {
     color: rgba(255, 255, 255, 0.8);
     font-size: 14px;
+    font-family: 'Outfit', sans-serif;
     font-style: italic;
     margin: 0;
 }
@@ -161,7 +163,7 @@ h1 {
     color: rgba(255, 255, 255, 0.7);
     padding: 6px 14px;
     font-size: 12px;
-    font-family: 'Brittany Script', cursive;
+    font-family: 'Outfit', sans-serif;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s ease;
