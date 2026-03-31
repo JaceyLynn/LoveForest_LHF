@@ -172,14 +172,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get the message box position
         const boxRect = messageBox.getBoundingClientRect();
         
-        // Create new paper overlay
+        // Create new paper overlay sized to match the message box
         const newPaper = document.createElement('div');
         newPaper.className = 'new-paper';
+        newPaper.style.width = `${boxRect.width}px`;
+        newPaper.style.height = `${boxRect.height}px`;
         document.body.appendChild(newPaper);
         
         // Start position: top right corner of window
         const startX = window.innerWidth + 50;
-        const startY = -450;
+        const startY = -(boxRect.height + 50);
         
         // End position: over the message box
         const endX = boxRect.left;
