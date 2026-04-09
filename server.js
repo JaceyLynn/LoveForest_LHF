@@ -78,11 +78,15 @@ app.get('/api/messages', async (req, res) => {
     }
 });
 
-connectMongo().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server running at http://localhost:${PORT}`);
-    });
-}).catch(err => {
-    console.error('Failed to connect to MongoDB:', err);
-    process.exit(1);
+// Start server immediately; connect to MongoDB if URI is configured
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
 });
+
+if (mongoUri) {
+    connectMongo().catch(err => {
+        console.error('Failed to connect to MongoDB:', err);
+    });
+} else {
+    console.warn('MONGODB_URI not set — API routes will be unavailable, but static files are served.');
+}

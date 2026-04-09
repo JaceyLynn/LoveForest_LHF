@@ -59,9 +59,11 @@ p {
     background: #F5F3EC;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     padding: 40px;
+    padding-top: 3vh;
+    padding-bottom: 5vh;
     color: rgb(0, 0, 0);
     z-index: 100;
     overflow: hidden;
@@ -70,16 +72,20 @@ p {
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
 }
 
+.section1 a {
+    display: contents;
+}
+
 .section1 img {
     max-height: 14%;
     height: auto;
     width: auto;
     margin-bottom: 4rem;
-    top: 5vh;
 }
 
 .section1 h1 {
-    font-size: 0.6rem;
+    font-size: 0.5rem;
+    margin-top: auto;
     margin-bottom: 20px;
     text-align: left;
 }
@@ -139,6 +145,7 @@ p {
 
 .card:hover {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px);
 }
 
 /* Overlay for modal effect */
@@ -262,7 +269,8 @@ p {
     transition: transform 0.3s ease;
 }
 
-.arrow-link:hover img {
+.arrow-link:hover img,
+.title-arrow-row:hover .arrow-link img {
     transform: translateX(5px);
 }
 
@@ -406,18 +414,46 @@ p {
         left: calc(30% + 5%) !important;
         width: calc(70% * 0.9) !important;
     }
+
+    .section1 h1 {
+        display: none;
+    }
+
+    .section1 img {
+        max-height: 28%;
+    }
 }
 
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
+    html, body {
+        overflow: auto;
     }
 
-    .section1,
+    .container {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .section1 {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        padding: 40px 30px;
+    }
+
+    .section1 h1 {
+        display: none;
+    }
+
+    .section1 p {
+        max-height: none;
+        overflow-y: visible;
+    }
+
     .section2 {
         width: 100%;
         height: auto;
-        min-height: 50vh;
+        min-height: 60vh;
     }
 
     .card.expanded {
@@ -439,10 +475,13 @@ p {
 
     .card3 {
         width: 80vw;
+        left: auto;
+        right: 0vw;
     }
 
     .card {
         text-align: center;
+        height: auto;
     }
 
     .card-content {
