@@ -199,11 +199,18 @@ function createFlipCard(treeNum, row, col, message, isHidden) {
     const meta = document.createElement('div');
     meta.className = 'message-meta';
     if (message) {
-        meta.textContent = `#${message.userIndex} · ${message.timeTag}`;
+        meta.textContent = `#${message.userIndex}`;
     }
     
     back.appendChild(content);
     back.appendChild(meta);
+    
+    if (message) {
+        const timestamp = document.createElement('div');
+        timestamp.className = 'message-timestamp';
+        timestamp.textContent = message.timeTag;
+        back.appendChild(timestamp);
+    }
     
     inner.appendChild(front);
     inner.appendChild(back);
@@ -263,16 +270,30 @@ function openExpandedCard(treeNum, row, col, message) {
         content.innerHTML = parseStrikethrough(message.content);
     } else {
         content.textContent = 'No message yet...';
+        content.appendChild(document.createElement('br'));
+        const link = document.createElement('a');
+        link.className = 'leave-message-link';
+        link.href = '/message.html';
+        link.textContent = 'Leave a message →';
+        link.addEventListener('click', (e) => e.stopPropagation());
+        content.appendChild(link);
     }
     
     const meta = document.createElement('div');
     meta.className = 'message-meta';
     if (message) {
-        meta.textContent = `#${message.userIndex} · ${message.timeTag}`;
+        meta.textContent = `#${message.userIndex}`;
     }
     
     back.appendChild(content);
     back.appendChild(meta);
+    
+    if (message) {
+        const timestamp = document.createElement('div');
+        timestamp.className = 'message-timestamp';
+        timestamp.textContent = message.timeTag;
+        back.appendChild(timestamp);
+    }
     
     inner.appendChild(front);
     inner.appendChild(back);
