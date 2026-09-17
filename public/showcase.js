@@ -325,6 +325,13 @@ function closeExpandedCard() {
 }
 
 function parseStrikethrough(text) {
-    // Replace ~~text~~ with <span class="strikethrough">text</span>
-    return text.replace(/~~([^~]+)~~/g, '<span class="strikethrough">$1</span>');
+    // Escape HTML first to prevent injection from user-submitted content
+    const escaped = String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    // Replace ~~text~~ with a strikethrough span, then preserve line breaks
+    return escaped
+        .replace(/~~([^~]+)~~/g, '<span class="strikethrough">$1</span>')
+        .replace(/\n/g, '<br>');
 }

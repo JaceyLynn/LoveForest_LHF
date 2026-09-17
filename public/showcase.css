@@ -144,8 +144,12 @@ body {
 }
 
 .expanded-card .message-content {
-    font-size: 40px;
-    line-height: 64px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    line-height: 1.4;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .expanded-card .message-meta {
@@ -211,6 +215,7 @@ body {
     position: relative;
     z-index: 1;
     flex: 1;
+    font-family: 'Dancing Script', cursive;
     font-size: 8px;
     line-height: 1.4;
     color: #333;

@@ -77,8 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get current text content
     function getCurrentText() {
         return letters
-            .filter(l => !l.isBreak)
-            .map(l => l.crossedOut ? `~~${l.element.textContent}~~` : l.element.textContent)
+            .map(l => {
+                if (l.isBreak) return '\n';
+                return l.crossedOut ? `~~${l.element.textContent}~~` : l.element.textContent;
+            })
             .join('');
     }
     
