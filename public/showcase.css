@@ -159,9 +159,12 @@ body {
 .expanded-card .message-timestamp {
     position: absolute;
     right: 30px;
-    bottom: 10px;
-    font-size: 12px;
-    color: #999;
+    bottom: 18px;
+    z-index: 2;
+    font-family: 'Dancing Script', cursive;
+    font-size: 16px;
+    line-height: 1;
+    color: #666;
 }
 
 .expanded-card .leave-message-link {
@@ -259,9 +262,12 @@ body {
 .message-timestamp {
     position: absolute;
     right: 5%;
-    bottom: 4px;
-    font-size: 6px;
-    color: #999;
+    bottom: 5%;
+    z-index: 2;
+    font-family: 'Dancing Script', cursive;
+    font-size: 8px;
+    line-height: 1;
+    color: #666;
 }
 
 /* Empty card (no message) */
