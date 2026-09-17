@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Create trees
     for (let treeNum = 1; treeNum <= numTrees; treeNum++) {
-        const tree = createTree(treeNum, messages, COLUMNS, ROWS);
+        const tree = createTree(treeNum, messages, COLUMNS, ROWS, highlightedMessageIndex);
         forestContainer.appendChild(tree);
     }
 
@@ -97,7 +97,7 @@ function shuffleArray(array) {
     return shuffled;
 }
 
-function createTree(treeNum, messages, columns, rows) {
+function createTree(treeNum, messages, columns, rows, highlightedMessageIndex) {
     const tree = document.createElement('div');
     tree.className = 'tree';
     tree.id = `tree-${treeNum}`;
