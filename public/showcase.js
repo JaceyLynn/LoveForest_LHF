@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const forestContainer = document.getElementById('forestContainer');
+    const highlightedMessageIndex = sessionStorage.getItem('highlightMessageIndex');
+    sessionStorage.removeItem('highlightMessageIndex');
     
     // Configuration
     const COLUMNS = 20;
@@ -23,6 +25,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     for (let treeNum = 1; treeNum <= numTrees; treeNum++) {
         const tree = createTree(treeNum, messages, COLUMNS, ROWS);
         forestContainer.appendChild(tree);
+    }
+
+    const highlightedCard = document.querySelector('.new-message-highlight');
+    if (highlightedCard) {
+        highlightedCard.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
     }
     
     // Create overlay for expanded cards
@@ -130,6 +137,10 @@ function createTree(treeNum, messages, columns, rows) {
             
             // Create the flip card
             const card = createFlipCard(treeNum, imageRow, gridCol, message, isHidden);
+
+            if (message && String(message.userIndex) === highlightedMessageIndex) {
+                card.classList.add('new-message-highlight');
+            }
             
             // Hide specific cells
             if (isHidden) {

@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.success) {
                 submitBtn.classList.add('success');
                 hintElement.textContent = 'Message sent! Taking you to the forest...';
+                sessionStorage.setItem('highlightMessageIndex', data.userIndex);
                 
                 // Redirect to showcase page after a moment
                 setTimeout(() => {
