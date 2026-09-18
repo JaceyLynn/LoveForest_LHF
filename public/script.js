@@ -100,6 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
             addLineBreak();
             return;
         }
+
+        if (e.code === 'Quote' && e.key === 'Dead') {
+            e.preventDefault();
+            addLetter("'");
+            return;
+        }
         
         // Handle Tab, Escape, and other control keys - ignore them
         if (e.key === 'Tab' || e.key === 'Escape' || e.ctrlKey || e.metaKey || e.altKey) {

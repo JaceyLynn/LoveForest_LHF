@@ -126,7 +126,7 @@ p {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 35px;
     cursor: pointer;
-    transition: all 0.5s ease;
+    transition: box-shadow 0.45s ease, transform 0.45s ease;
     position: absolute;
     left: 0;
     border: 1px solid black;
@@ -148,55 +148,39 @@ p {
     transform: translateY(-8px);
 }
 
-/* Overlay for modal effect */
-.card-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
-    z-index: 99;
+.card.is-selected {
+    z-index: 10;
+    animation: card-rise 0.45s ease both;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-.card-overlay.active {
-    opacity: 1;
-    visibility: visible;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+@keyframes card-rise {
+    from {
+        transform: translateY(8px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
 
-/* Expanded card state - centered in section 2 */
-.card.expanded {
-    position: fixed !important;
-    top: 7.5vh !important;
-    left: calc(70% - 20vw) !important;
-    transform: none !important;
-    width: 40vw !important;
-    height: 85vh !important;
-    z-index: 100 !important;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    padding: 40px;
-}
-
-/* Card 1 - Narrowest, on top */
-.card1 {
+/* Shared desktop card dimensions */
+.card1,
+.card2,
+.card3 {
     width: 40vw;
     height: 85vh;
+}
+
+/* Card 1 - on top */
+.card1 {
     top: 15vh;
     z-index: 3;
     background: #D6E8DA;
 }
 
-/* Card 2 - Medium width, peeks out 10% on right */
+/* Card 2 */
 .card2 {
-    width: 40vw;
-    height: 85vh;
     top: 3vh;
     left: 10vw;
     right: 10vw;
@@ -208,11 +192,9 @@ p {
     text-align: left;
 } 
 
-/* Card 3 - Widest, at bottom with margin */
+/* Card 3 */
 .card3 {
-    width: 40vw;
-    height: 85vh;
-    top:30vh;
+    top:25vh;
     left: 30vw;
     z-index: 2;
     background: #f0e29a;
@@ -410,11 +392,6 @@ p {
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
-    .card.expanded {
-        left: calc(30% + 5%) !important;
-        width: calc(70% * 0.9) !important;
-    }
-
     .section1 h1 {
         display: none;
     }
@@ -439,6 +416,10 @@ p {
         height: auto;
         min-height: auto;
         padding: 40px 30px;
+        border-right: 0;
+        border-bottom: 1px solid black;
+        margin-right: 0;
+        box-shadow: none;
     }
 
     .section1 h1 {
@@ -456,32 +437,21 @@ p {
         min-height: 60vh;
     }
 
-    .card.expanded {
-        left: 5vw !important;
-        width: 90vw !important;
-    }
-
     .cards-container {
         height: 400px;
-    }
-
-    .card1 {
-        width: 60vw;
-    }
-
-    .card2 {
-        width: 70vw;
-    }
-
-    .card3 {
-        width: 80vw;
-        left: auto;
-        right: 0vw;
     }
 
     .card {
         text-align: center;
         height: auto;
+    }
+
+    .card1,
+    .card2,
+    .card3 {
+        width: 80vw;
+        height: auto;
+        aspect-ratio: 4 / 5;
     }
 
     .card-content {
